@@ -1,23 +1,18 @@
-const Discord = require("discord.js");
+const { Client, Collection } = require("discord.js");
 const { TOKEN, PREFIX } = require("./config");
-const client = new Discord.Client();
+const client = new Client({ disableEveryone: true });
 
-client.on("ready", () => {
-  console.log("Je suis prêt !");
-});
+client.PREFIX = PREFIX;
 
-client.on("message", msg => {
-  // bk
-  if (msg.content.startsWith(`${PREFIX}tennis-de-table`)) msg.channel.send("ping");
-  if (msg.content === "ping") msg.channel.send("pong");
-  if (msg.content === "pong") msg.channel.send("ping");
-});
+client.commands = new Collection();
+client.commands.set("repeat", require("./commands/repeat.js"));
+client.commands.set("role", require("./commands/role.js"));
+client.commands.set("sinfo", require("./commands/sinfo.js"));
 
-/* client.on('messageReactionAdd', (messageReaction, user) => {
-  if (messageReaction.message === "Test des rôles !") {
-    if (messageReaction.emoji.id === )
-  }
-}); */
+client.on("ready", () => require("./events/ready.js")(client));
+client.on("message", message => require("./events/message.js")(client, message));
+client.on("guildMemberAdd", member => require("./events/guildMemberAdd.js")(client, member));
 
-// eslint-disable-next-line eol-last
 client.login(TOKEN);
+client.on("error", console.error);
+client.on("warn", console.warn);
