@@ -15,6 +15,7 @@ client.commands.set("eval", require("./commands/eval.js"));
 client.on("ready", () => require("./events/ready.js")(client));
 client.on("message", message => require("./events/message.js")(client, message));
 client.on("guildMemberAdd", member => require("./events/guildMemberAdd.js")(client, member));
+client.on("guildCreate", guild => require("./events/guildCreate.js")(client, guild));
 
 client.mongoose.init();
 client.login(TOKEN);
