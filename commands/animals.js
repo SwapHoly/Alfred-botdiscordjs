@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = async (client, message, args) => {
-  message.delete({ timeout: 1 }).then(console.log(`Message supprimé: ${message.content}`));
+exports.run = async (client, message, args) => {
+  message.delete({ timeout: 1 });
 
   if (args[0] === "cat") {
     const cat = await fetch("http://aws.random.cat/meow")
@@ -32,4 +32,8 @@ module.exports = async (client, message, args) => {
       .setFooter("Powered by 'https://randomfox.ca/floof/'");
     message.channel.send(embed);
   }
+};
+
+exports.help = {
+  name: "animals"
 };

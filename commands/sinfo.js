@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 
-module.exports = (client, message) => {
+exports.run = (client, message) => {
   const embed = new MessageEmbed()
     .setDescription(message.guild.name)
     .setThumbnail(message.guild.iconURL())
@@ -8,5 +8,9 @@ module.exports = (client, message) => {
     .addField("Owner", message.guild.owner.user.tag, true)
     .setTimestamp();
   message.channel.send(embed);
-  message.delete({ timeout: 1 }).then(console.log(`Message supprimé: ${message.content}`));
+  message.delete({ timeout: 1 });
+};
+
+exports.help = {
+  name: "sinfo"
 };

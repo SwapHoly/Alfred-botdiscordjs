@@ -1,4 +1,4 @@
-module.exports = (client, message, args) => {
+exports.run = (client, message, args) => {
   const channel = client.channels.cache.find(r => r.name === "logs-alfred");
   const role = message.guild.roles.cache.find(r => r.name === args[0]);
   if (!role) return message.channel.send("Ce rôle n'existe pas !");
@@ -12,4 +12,8 @@ module.exports = (client, message, args) => {
     channel.send(`J'ai ajouté le rôle ${role} à ${message.author}.`);
     message.delete({ timeout: 1 }).then(console.log(`Message supprimé: ${message.content}`));
   }
+};
+
+exports.help = {
+  name: "role"
 };
